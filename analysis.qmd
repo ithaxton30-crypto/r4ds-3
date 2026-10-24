@@ -1,5 +1,6 @@
 ---
 title: "Analyzing School District Reading Scores"
+author: "Isabella Thaxton"
 format: html
 execute:
   echo: false
@@ -7,6 +8,7 @@ execute:
 
 
 ```{r}
+#| include: false
 #| message: false
 library(tidyverse)
 library(DBI)
@@ -15,11 +17,13 @@ library(dbplyr)
 ```
 
 ```{r}
+#| include: false
 con <- dbConnect(duckdb(), dbdir = "data/seda_2025.duckdb", read_only = TRUE)
 dbplyr_dist <- tbl(con, "district_scores")
 ```
 
 ```{r}
+#| include: false
 #| cache: true
 #| cache.extra: !expr file.mtime("data/seda_2025.duckdb")
 districts_2015 <- dbplyr_dist |>
@@ -53,6 +57,7 @@ print(state_change)
 ```
 
 ```{r}
+#| include: false
 ggplot(score_change, aes(x = rla_change, fill = rla_change > 0)) +
   geom_histogram(bins = 30) +
   geom_vline(xintercept = 0, linetype = "dashed") +
